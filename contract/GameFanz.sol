@@ -102,5 +102,9 @@ contract GameFanz is IERC20, Owned {
         }
     }
     
+    function collectETH() public onlyOwner {
+        owner.transfer(contractAddress.balance);
+    }
+    
     
 }
