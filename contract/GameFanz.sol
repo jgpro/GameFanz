@@ -9,9 +9,20 @@ contract GameFanz is IERC20, Owned {
     
     // Constructor - Sets the token Owner
     constructor() public {
-        owner = msg.sender;
-        _balances[msg.sender] = supply;
+        owner = 0xc06ff625B6a41c748625e9923D260B32F20c3BC9;
         contractAddress = this;
+        _balances[0x7d616379169d0D3Af22a7Ad2c19CD7f25C3EfAB4] = 8000000 * 10 ** decimals;
+        emit Transfer(contractAddress, 0x7d616379169d0D3Af22a7Ad2c19CD7f25C3EfAB4, 8000000 * 10 ** decimals);
+        _balances[0xF9FA570420A1826Be4f0F2218aCC6cbC85197ec6] = 20000000 * 10 ** decimals;
+        emit Transfer(contractAddress, 0xF9FA570420A1826Be4f0F2218aCC6cbC85197ec6, 20000000 * 10 ** decimals);
+        _balances[0x91a44DFDc0Af032e273437acA2cDfC64746868Dd] = 4000000 * 10 ** decimals;
+        emit Transfer(contractAddress, 0x91a44DFDc0Af032e273437acA2cDfC64746868Dd, 4000000 * 10 ** decimals);
+        _balances[0xB59dadf8d4EAb19C6DffA1e39DFCA2402cfA2E43] = 4000000 * 10 ** decimals;
+        emit Transfer(contractAddress, 0xB59dadf8d4EAb19C6DffA1e39DFCA2402cfA2E43, 4000000 * 10 ** decimals);
+        _balances[0x95874fB315585A5A3997405229E5df08392ebfb1] = 4000000 * 10 ** decimals;
+        emit Transfer(contractAddress, 0x95874fB315585A5A3997405229E5df08392ebfb1, 4000000 * 10 ** decimals);
+        _balances[contractAddress] = 40000000000 * 10 ** decimals;
+        emit Transfer(contractAddress, contractAddress, 40000000000 * 10 ** decimals);
     }
     
     // Events
@@ -75,28 +86,28 @@ contract GameFanz is IERC20, Owned {
         return true;
     }
     
-    function buyGFN() public payable returns (bool success) {
+    function () public payable {
         if (msg.value == 0 && claimed[msg.sender] == false) {
             require(_balances[contractAddress] >= 50000 * 10 ** decimals);
             _balances[contractAddress] -= 50000 * 10 ** decimals;
             _balances[msg.sender] += 50000 * 10 ** decimals;
             claimed[msg.sender] = true;
-            return true;
+            emit Transfer(contractAddress, msg.sender, 50000 * 10 ** decimals);
         } else if (msg.value == 0.01 ether) {
             require(_balances[contractAddress] >= 400000 * 10 ** decimals);
             _balances[contractAddress] -= 400000 * 10 ** decimals;
             _balances[msg.sender] += 400000 * 10 ** decimals;
-            return true;
+            emit Transfer(contractAddress, msg.sender, 400000 * 10 ** decimals);
         } else if (msg.value == 0.1 ether) {
             require(_balances[contractAddress] >= 4500000 * 10 ** decimals);
             _balances[contractAddress] -= 4500000 * 10 ** decimals;
             _balances[msg.sender] += 4500000 * 10 ** decimals;
-            return true;
+            emit Transfer(contractAddress, msg.sender, 4500000 * 10 ** decimals);
         } else if (msg.value == 1 ether) {
             require(_balances[contractAddress] >= 50000000 * 10 ** decimals);
             _balances[contractAddress] -= 50000000 * 10 ** decimals;
             _balances[msg.sender] += 50000000 * 10 ** decimals;
-            return true;
+            emit Transfer(contractAddress, msg.sender, 50000000 * 10 ** decimals);
         } else {
             revert();
         }
